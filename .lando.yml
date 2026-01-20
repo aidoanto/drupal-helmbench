@@ -1,0 +1,32 @@
+name: drupal-helmbench
+recipe: drupal11
+config:
+  webroot: web
+  php: "8.3"
+  database: mysql
+  xdebug: false
+
+services:
+  appserver:
+    overrides:
+      environment:
+        DRUSH_OPTIONS_URI: "http://drupal-helmbench.lndo.site"
+    build_as_root:
+      - apt-get update -y
+      - apt-get install -y curl
+      - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      - apt-get install -y nodejs
+
+tooling:
+  composer:
+    service: appserver
+  drush:
+    service: appserver
+  php:
+    service: appserver
+  node:
+    service: appserver
+  npm:
+    service: appserver
+  npx:
+    service: appserver

@@ -1,0 +1,52 @@
+# Theme Breakpoints
+# Documentation: https://www.drupal.org/docs/theming-drupal/working-with-breakpoints-in-drupal
+#
+# Breakpoints are used by the Responsive Image module to serve different
+# image sizes at different viewport widths. These should align with your
+# Tailwind CSS breakpoints.
+#
+# After changes, clear cache: drush cr
+
+# Mobile-first approach: smallest breakpoint has no media query (it's the default).
+# Each subsequent breakpoint targets larger screens.
+
+helmbench.mobile:
+  label: Mobile
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+    - 2x
+  # Mobile: 0-767px (default, no media query needed)
+
+helmbench.tablet:
+  label: Tablet
+  mediaQuery: '(min-width: 768px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+  # Tablet: 768px - 1023px
+
+helmbench.desktop:
+  label: Desktop
+  mediaQuery: '(min-width: 1024px)'
+  weight: 2
+  multipliers:
+    - 1x
+    - 2x
+  # Desktop: 1024px - 1439px
+
+helmbench.wide:
+  label: Wide
+  mediaQuery: '(min-width: 1440px)'
+  weight: 3
+  multipliers:
+    - 1x
+    - 2x
+  # Wide: 1440px+
+
+# TODO: After defining breakpoints:
+# 1. Go to Admin > Configuration > Media > Image styles - create image styles
+# 2. Go to Admin > Configuration > Media > Responsive image styles - map breakpoints to image styles
+# 3. Use responsive image styles in your Views and field formatters

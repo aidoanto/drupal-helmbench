@@ -1,0 +1,27 @@
+# Theme-level .gitignore
+# Customize based on your workflow
+
+# Node modules (install fresh with npm install)
+node_modules/
+
+# Compiled output - uncomment if you want to commit compiled assets
+# (Some teams prefer to commit dist/ for deployment simplicity)
+# dist/
+
+# Storybook build output
+storybook-static/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor
+*.swp
+*.swo
+*~
+
+# npm debug logs
+npm-debug.log*
+
+# Optional: Uncomment to ignore lock file (not recommended)
+# package-lock.json

@@ -1,0 +1,69 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ * - label: The node title.
+ * - content: All node items (fields, etc.)
+ * - attributes: HTML attributes for the containing element.
+ * - view_mode: 'full', 'teaser', etc.
+ *
+ * TODO: Customize for your content types. Consider creating:
+ * - node--page.html.twig for Page content type
+ * - node--result.html.twig for Result content type
+ *
+ * For the Result content type, you mentioned these aren't primarily viewed
+ * as standalone pages (they're in the Views table). You could:
+ * - Keep this minimal and focus on the teaser view mode for Views rows
+ * - Or add Rabbit Hole module to prevent direct access
+ *
+ * @see template_preprocess_node()
+ */
+#}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+
+  {# Title - often rendered in page.html.twig instead #}
+  {{ title_prefix }}
+  {% if label and not page %}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+  {% endif %}
+  {{ title_suffix }}
+
+  {#
+    TODO: Content display logic.
+
+    For Page content type, you likely want:
+    - field_featured_image (optional hero image)
+    - field_body_components (paragraphs)
+
+    For Result content type, fields include:
+    - field_model_name
+    - field_creator (taxonomy reference)
+    - field_date_of_run
+    - field_score
+    - field_run_summary
+    - field_cost_of_run
+    - field_token_cost_in
+    - field_token_cost_out
+  #}
+
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content }}
+  </div>
+
+</article>

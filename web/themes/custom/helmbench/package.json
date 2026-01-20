@@ -1,0 +1,19 @@
+{
+  "name": "helmbench-theme",
+  "version": "1.0.0",
+  "description": "HELMbench Drupal theme frontend tooling",
+  "private": true,
+  "scripts": {
+    "dev": "npm run css:watch",
+    "build": "npm run css:build",
+    "css:build": "tailwindcss -i ./src/css/main.css -o ./dist/css/main.css --minify",
+    "css:watch": "tailwindcss -i ./src/css/main.css -o ./dist/css/main.css --watch",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build -o ./storybook-static"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "optionalDependencies": {
+  }
+}

@@ -1,0 +1,83 @@
+/**
+ * Main CSS Entry Point
+ *
+ * This file is processed by Tailwind CSS to generate dist/css/main.css.
+ * Run: npm run build (or npm run dev for watch mode)
+ */
+
+/* Tailwind Base - CSS reset and base styles */
+@tailwind base;
+
+/* Tailwind Components - Component classes */
+@tailwind components;
+
+/* Tailwind Utilities - Utility classes */
+@tailwind utilities;
+
+/**
+ * Custom Base Styles
+ * Add global styles that apply to bare HTML elements.
+ * Use @layer base to ensure proper ordering with Tailwind's reset.
+ */
+@layer base {
+  /* TODO: Add your base typography styles */
+  /* Example:
+  body {
+    @apply text-gray-900 bg-white;
+  }
+
+  h1 {
+    @apply text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  a {
+    @apply text-blue-600 underline hover:text-blue-800;
+  }
+  */
+}
+
+/**
+ * Custom Components
+ * Reusable component patterns. Use @apply to compose Tailwind utilities.
+ */
+@layer components {
+  /* TODO: Add reusable component classes */
+  /* Example:
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary/90;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+
+  .container-content {
+    @apply max-w-4xl mx-auto px-4;
+  }
+  */
+}
+
+/**
+ * Custom Utilities
+ * One-off utility classes that don't fit Tailwind's defaults.
+ */
+@layer utilities {
+  /* TODO: Add custom utilities if needed */
+  /* Example:
+  .text-balance {
+    text-wrap: balance;
+  }
+  */
+}

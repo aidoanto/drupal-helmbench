@@ -1,0 +1,127 @@
+<?php
+
+/**
+ * @file
+ * Theme hooks and preprocessors for the HELMbench theme.
+ *
+ * Documentation: https://www.drupal.org/docs/theming-drupal/twig-in-drupal/twig-best-practices-preprocess-functions-and-templates
+ *
+ * This file contains PHP functions that prepare data for your Twig templates.
+ * Common patterns:
+ * - hook_preprocess_HOOK(): Add/modify variables for a specific template
+ * - hook_theme_suggestions_HOOK_alter(): Add custom template suggestions
+ */
+
+/**
+ * Implements hook_preprocess().
+ *
+ * Runs for ALL templates. Use sparingly - prefer specific preprocess hooks.
+ */
+function helmbench_preprocess(&$variables, $hook) {
+  // TODO: Add global variables available to all templates.
+  // Example: $variables['theme_path'] = \Drupal::theme()->getActiveTheme()->getPath();
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ * Preprocess variables for html.html.twig.
+ * Good for: adding body classes, modifying <head> content.
+ */
+function helmbench_preprocess_html(&$variables) {
+  // TODO: Add custom body classes based on conditions.
+  // Example: Add class for logged-in users
+  // if (\Drupal::currentUser()->isAuthenticated()) {
+  //   $variables['attributes']['class'][] = 'user-logged-in';
+  // }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ *
+ * Preprocess variables for page.html.twig.
+ * Good for: page-level logic, checking current route.
+ */
+function helmbench_preprocess_page(&$variables) {
+  // TODO: Add page-level variables.
+  // Example: Check if we're on the front page
+  // $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+}
+
+/**
+ * Implements hook_preprocess_node().
+ *
+ * Preprocess variables for node templates.
+ * Good for: adding variables based on content type, view mode.
+ */
+function helmbench_preprocess_node(&$variables) {
+  // TODO: Add node-specific variables.
+  // $node = $variables['node'];
+  // $bundle = $node->bundle(); // 'page', 'result', etc.
+  // $view_mode = $variables['view_mode']; // 'full', 'teaser', etc.
+  //
+  // Example: Add a class for the Result content type
+  // if ($bundle === 'result') {
+  //   $variables['attributes']['class'][] = 'result-node';
+  // }
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ *
+ * Preprocess variables for paragraph templates.
+ * Good for: preparing data for your paragraph components.
+ */
+function helmbench_preprocess_paragraph(&$variables) {
+  // TODO: Add paragraph-specific variables.
+  // $paragraph = $variables['paragraph'];
+  // $bundle = $paragraph->bundle(); // 'rich_text', 'card_grid', etc.
+  //
+  // Example: Add bundle as a class
+  // $variables['attributes']['class'][] = 'paragraph--' . $bundle;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for node templates.
+ *
+ * Add custom template suggestions for nodes.
+ * Suggestions are checked in reverse order (last = highest priority).
+ */
+function helmbench_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  // TODO: Add custom template suggestions.
+  // $node = $variables['elements']['#node'];
+  // $view_mode = $variables['elements']['#view_mode'];
+  //
+  // Example: node--[bundle]--[view-mode].html.twig
+  // $suggestions[] = 'node__' . $node->bundle() . '__' . $view_mode;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for paragraph templates.
+ *
+ * Add custom template suggestions for paragraphs.
+ */
+function helmbench_theme_suggestions_paragraph_alter(array &$suggestions, array $variables) {
+  // TODO: Add custom template suggestions.
+  // $paragraph = $variables['elements']['#paragraph'];
+  // $parent = $paragraph->getParentEntity();
+  //
+  // Example: paragraph--[bundle]--[parent-bundle].html.twig
+  // if ($parent) {
+  //   $suggestions[] = 'paragraph__' . $paragraph->bundle() . '__' . $parent->bundle();
+  // }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for page templates.
+ *
+ * Add custom template suggestions for pages.
+ */
+function helmbench_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // TODO: Add page template suggestions based on route or content type.
+  // Example: page--node--result.html.twig for Result nodes
+  // $route = \Drupal::routeMatch();
+  // if ($node = $route->getParameter('node')) {
+  //   $suggestions[] = 'page__node__' . $node->bundle();
+  // }
+}

@@ -1,0 +1,44 @@
+# HELMbench Custom Theme
+# Documentation: https://www.drupal.org/docs/theming-drupal
+#
+# This file defines your theme's metadata and configuration.
+# After making changes, clear Drupal cache: drush cr
+
+name: HELMbench
+type: theme
+description: 'Custom theme for HELMbench - Harm-reduction Evaluation for LLMs & Mental-health benchmark site.'
+package: Custom
+core_version_requirement: ^11
+
+# Base theme: 'false' means this is a standalone theme with no parent.
+# TODO: Consider using 'stable9' or 'classy' as base if you need fallback templates.
+base theme: false
+
+# Regions define the areas where blocks can be placed.
+# These match the layout described in your context document.
+regions:
+  content: 'Main Content'
+  navigation: 'Navigation'
+  table_of_contents: 'Table of Contents'
+  footer: 'Footer'
+
+# Libraries define CSS and JS assets attached to your theme.
+# Reference libraries defined in helmbench.libraries.yml
+libraries:
+  - helmbench/global
+
+# Libraries to exclude from parent themes or core (optional).
+# TODO: Uncomment and customize if you need to remove default styles.
+# libraries-override:
+#   classy/base: false
+
+# Libraries to extend (optional).
+# TODO: Uncomment to add your library alongside another.
+# libraries-extend:
+#   core/drupal.dialog:
+#     - helmbench/dialog-styles
+
+# CKEditor 5 stylesheets - these load in the WYSIWYG editor.
+# TODO: Add your typography/base styles here so content editors see styled text.
+# ckeditor5-stylesheets:
+#   - dist/css/ckeditor.css

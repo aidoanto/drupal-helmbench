@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Theme override to display a single page.
+ *
+ * The doctype, html, head, and body tags are handled by html.html.twig.
+ *
+ * Available variables:
+ * - page.navigation: Navigation region content
+ * - page.content: Main content region
+ * - page.table_of_contents: Table of contents region
+ * - page.footer: Footer region
+ *
+ * TODO: This template should:
+ * 1. Include your layout component from components/04-templates/
+ * 2. Pass region variables to the component
+ * 3. Handle mobile vs desktop layout differences
+ *
+ * Example final implementation:
+ * {% include '@helmbench/04-templates/page-default/page-default.twig' with {
+ *   navigation: page.navigation,
+ *   content: page.content,
+ *   table_of_contents: page.table_of_contents,
+ *   footer: page.footer,
+ * } %}
+ *
+ * @see template_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+{# TODO: Replace this basic structure with your page layout component #}
+
+<div class="page-wrapper">
+  {#
+    Desktop Layout:
+    - Navigation on left
+    - Main content in center
+    - Table of contents on right
+    - Footer at bottom
+
+    Mobile Layout:
+    - Fixed header with TOC toggle and menu button
+    - Main content
+    - Footer
+
+    See context.md for full layout specifications.
+  #}
+
+  {# Navigation Region #}
+  {% if page.navigation %}
+    <nav class="region-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
+      {{ page.navigation }}
+    </nav>
+  {% endif %}
+
+  {# Main Content Region #}
+  <main id="main-content" class="region-content" role="main">
+    {{ page.content }}
+  </main>
+
+  {# Table of Contents Region #}
+  {% if page.table_of_contents %}
+    <aside class="region-toc" role="complementary" aria-label="{{ 'Table of contents'|t }}">
+      {{ page.table_of_contents }}
+    </aside>
+  {% endif %}
+
+  {# Footer Region #}
+  {% if page.footer %}
+    <footer class="region-footer" role="contentinfo">
+      {{ page.footer }}
+    </footer>
+  {% endif %}
+</div>

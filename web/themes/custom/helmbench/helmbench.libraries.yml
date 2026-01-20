@@ -1,0 +1,48 @@
+# Theme Libraries
+# Documentation: https://www.drupal.org/docs/theming-drupal/adding-assets-css-js-to-a-drupal-theme-via-librariesyml
+#
+# Libraries bundle CSS and JS files together. They can declare dependencies
+# and be attached to specific pages or components.
+
+# Global library - attached to every page via helmbench.info.yml
+global:
+  version: VERSION
+  css:
+    # CSS categories (SMACSS): base, layout, component, state, theme
+    # Lower weight = loads first. Use weights to control cascade order.
+    theme:
+      # TODO: This is your compiled Tailwind CSS output.
+      # Run your build process to generate this file.
+      dist/css/main.css: {}
+  js:
+    # TODO: Add your compiled JS here if needed.
+    # dist/js/main.js: {}
+    #   attributes:
+    #     defer: true
+  dependencies:
+    # Core dependencies your theme might need.
+    # TODO: Uncomment as needed.
+    # - core/drupal
+    # - core/once
+    # - core/jquery (avoid if possible - use vanilla JS)
+
+# Example: Component-specific library
+# Attach to specific components using {{ attach_library('helmbench/accordion') }} in Twig.
+#
+# accordion:
+#   version: VERSION
+#   js:
+#     components/03-organisms/accordion/accordion.js: {}
+#   dependencies:
+#     - core/drupal
+#     - core/once
+
+# Example: Library for a specific page or feature
+#
+# results-table:
+#   version: VERSION
+#   css:
+#     component:
+#       components/03-organisms/results-table/results-table.css: {}
+#   js:
+#     components/03-organisms/results-table/results-table.js: {}
