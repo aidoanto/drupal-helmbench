@@ -14,7 +14,7 @@ Given this reality, It is a way to measure an LLM's potential risk to a person i
 
 ## About me
 
-I am a new developer. I have completed intermediate courses on Python, CSS, and HTML. However, I am new to developing for the web.
+I am a new developer. I have completed intermediate courses on Python, CSS, and HTML. However, I am new to developing for the web, new to contemporary frontend development, and new to putting a lot of these learnings into action practically.
 
 I work as a digital producer at Lifeline Australia. I have a new personal project doing some AI research (see above) and I want to publish it online.
 

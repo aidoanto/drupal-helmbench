@@ -27,6 +27,18 @@ regions:
 libraries:
   - helmbench/global
 
+components:
+  namespaces:
+    # Main namespace - use @helmbench/01-atoms/... pattern
+    helmbench: components
+    # Shorthand namespaces - use @atoms/... pattern
+    atoms: components/01-atoms
+    molecules: components/02-molecules
+    organisms: components/03-organisms
+    templates: components/04-templates
+    pages: components/05-pages
+    templates_drupal: templates
+
 # Libraries to exclude from parent themes or core (optional).
 # TODO: Uncomment and customize if you need to remove default styles.
 # libraries-override:

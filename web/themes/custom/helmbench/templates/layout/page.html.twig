@@ -31,7 +31,17 @@
 
 {# TODO: Replace this basic structure with your page layout component #}
 
-<div class="page-wrapper">
+{% set classes = classes.addClass(
+  'page-wrapper',
+  'grid',
+  'grid-cols-[16rem_1fr_16rem]',
+) %}
+{# Theme Toggle - Dark mode toggle button in top right corner #}
+{{ attach_library('helmbench/theme-toggle') }}
+<div class="m-4 fixed top-4 right-4 z-50">
+  {% include '@helmbench/01-atoms/theme-toggle/theme-toggle.twig' %}
+</div>
+<div class="page-wrapper grid gap-4" style="grid-template-columns: 1fr minmax(0, 75ch) 1fr;">
   {#
     Desktop Layout:
     - Navigation on left
@@ -48,28 +58,43 @@
   #}
 
   {# Navigation Region #}
-  {% if page.navigation %}
+  <div class="column content-center m-4">
+    {# {% if page.navigation %} #}
     <nav class="region-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
-      {{ page.navigation }}
+      <h2><a href="https://zombo.com">HELMBench</a></h2>
+      <h2><a href="https://zombo.com">About me</a></h2>
+      {# {{ page.navigation }} #}
     </nav>
-  {% endif %}
+  {# {% endif %} #}
+  </div>
 
-  {# Main Content Region #}
-  <main id="main-content" class="region-content" role="main">
-    {{ page.content }}
-  </main>
+  <div class="column">
+    {# Main Content Region #}
+    <main id="main-content" class="region-content" role="main">
+      {{ page.content }}
+    </main>
 
-  {# Table of Contents Region #}
-  {% if page.table_of_contents %}
+    {% if page.footer %}
+      <footer class="region-footer" role="contentinfo">
+        {{ page.footer }}
+      </footer>
+    {% endif %}
+  </div>
+
+  <div class="column content-center text-right m-4">
+
+
+    {# Table of Contents Region #}
+    {# {% if page.table_of_contents %} #}
     <aside class="region-toc" role="complementary" aria-label="{{ 'Table of contents'|t }}">
       {{ page.table_of_contents }}
+      <h2>Subheading 1</h2>
+      <h2>Subheading 2</h2>
+      <h2>Subheading 3</h2>
     </aside>
-  {% endif %}
+    {# {% endif %} #}
+  </div>
 
   {# Footer Region #}
-  {% if page.footer %}
-    <footer class="region-footer" role="contentinfo">
-      {{ page.footer }}
-    </footer>
-  {% endif %}
+
 </div>

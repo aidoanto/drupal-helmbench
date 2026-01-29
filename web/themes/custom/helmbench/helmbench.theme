@@ -34,6 +34,16 @@ function helmbench_preprocess_html(&$variables) {
   // if (\Drupal::currentUser()->isAuthenticated()) {
   //   $variables['attributes']['class'][] = 'user-logged-in';
   // }
+
+  // Include icon sprite for Lucide icons.
+  $theme_path = \Drupal::theme()->getActiveTheme()->getPath();
+  $sprite_path = $theme_path . '/dist/icons/sprite.svg';
+  if (file_exists($sprite_path)) {
+    $variables['icon_sprite'] = file_get_contents($sprite_path);
+  }
+  else {
+    $variables['icon_sprite'] = '';
+  }
 }
 
 /**

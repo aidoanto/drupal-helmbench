@@ -20,28 +20,97 @@
  * Use @layer base to ensure proper ordering with Tailwind's reset.
  */
 @layer base {
-  /* TODO: Add your base typography styles */
-  /* Example:
+
+  :root {
+    /* Store only the OKLCH components (L C H) - not the full oklch() function.
+     * This allows Tailwind to inject opacity via the /<alpha-value> syntax.
+     * Example: bg-bg/80 becomes oklch(0.96 0.02 79 / 0.8)
+     */
+    --bg-deep: 0.92 0.02 79;
+    --bg: 0.96 0.02 79;
+    --bg-shallow: 1 0.02 79;
+    --text: 0.15 0.04 79;
+    --text-muted: 0.4 0.04 79;
+    --highlight: 1 0.04 79;
+    --border: 0.6 0.04 79;
+    --border-muted: 0.7 0.04 79;
+    --primary: 0.4 0.1 79;
+    --secondary: 0.4 0.1 259;
+    --danger: 0.5 0.05 30;
+    --warning: 0.5 0.05 100;
+    --success: 0.5 0.05 160;
+    --info: 0.5 0.05 260;
+  }
+
+  .dark {
+    /* Dark mode values - same structure, different numbers */
+    --bg-deep: 0.1 0.02 79;
+    --bg: 0.15 0.02 79;
+    --bg-shallow: 0.2 0.02 79;
+    --text: 0.96 0.04 79;
+    --text-muted: 0.76 0.04 79;
+    --highlight: 0.5 0.04 79;
+    --border: 0.4 0.04 79;
+    --border-muted: 0.3 0.04 79;
+    --primary: 0.76 0.1 79;
+    --secondary: 0.76 0.1 259;
+    --danger: 0.7 0.05 30;
+    --warning: 0.7 0.05 100;
+    --success: 0.7 0.05 160;
+    --info: 0.7 0.05 260;
+  }
+
+  html {
+    font-size: 16px;
+  }
+
   body {
-    @apply text-gray-900 bg-white;
+    @apply bg-bg text-text font-sans leading-relaxed;
   }
-
-  h1 {
-    @apply text-4xl font-bold;
-  }
-
-  h2 {
-    @apply text-3xl font-semibold;
-  }
-
+  h1,
+  h2,
   h3 {
-    @apply text-2xl font-semibold;
+    @apply font-headings text-secondary;
   }
-
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  h6 {
+    @apply text-base md:text-lg;
+  }
+  p {
+    @apply text-base md:text-lg;
+  }
   a {
-    @apply text-blue-600 underline hover:text-blue-800;
+    @apply text-primary underline underline-offset-2;
   }
-  */
+  ul {
+    @apply list-disc list-inside;
+  }
+  ol {
+    @apply list-decimal list-inside;
+  }
+  li {
+    @apply text-base md:text-lg;
+  }
+  blockquote {
+    @apply text-base md:text-lg;
+  }
+  code {
+    @apply font-mono text-secondary md:text-lg;
+  }
 }
 
 /**

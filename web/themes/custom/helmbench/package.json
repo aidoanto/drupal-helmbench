@@ -5,15 +5,16 @@
   "private": true,
   "scripts": {
     "dev": "npm run css:watch",
-    "build": "npm run css:build",
+    "build": "npm run icons:build && npm run css:build",
+    "icons:build": "node scripts/build-icons.js",
     "css:build": "tailwindcss -i ./src/css/main.css -o ./dist/css/main.css --minify",
     "css:watch": "tailwindcss -i ./src/css/main.css -o ./dist/css/main.css --watch",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build -o ./storybook-static"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "lucide": "^0.469.0",
     "tailwindcss": "^3.4.0"
-  },
-  "optionalDependencies": {
   }
 }

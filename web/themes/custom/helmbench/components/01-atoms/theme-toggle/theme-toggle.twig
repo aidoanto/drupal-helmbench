@@ -1,0 +1,45 @@
+{#
+  Theme Toggle Component
+
+  A button that toggles between light and dark mode.
+  Shows a sun icon in dark mode (click to switch to light).
+  Shows a moon icon in light mode (click to switch to dark).
+
+  The actual toggle logic is handled by theme-toggle.js.
+  The initial theme is set by an inline script in html.html.twig.
+
+  Usage:
+  {% include '@helmbench/01-atoms/theme-toggle/theme-toggle.twig' %}
+
+  Variables:
+  - class: string (optional) - Additional CSS classes for the button
+#}
+
+{% set button_classes = [
+  'theme-toggle',
+  'p-2',
+  'rounded-md',
+  'hover:bg-bg-deep',
+  'transition-colors',
+  'cursor-pointer',
+  class
+] | filter(v => v) | join(' ') %}
+
+<button
+	type="button" class="{{ button_classes }}" aria-label="{{ 'Toggle dark mode'|t }}" title="{{ 'Toggle dark mode'|t }}">
+	{# Sun icon - visible in dark mode (click to go light) #}
+	{% include '@helmbench/01-atoms/icon/icon.twig' with {
+    name: 'sun',
+    size: 'md',
+    class: 'hidden dark:block',
+    aria_hidden: true
+  } %}
+
+	{# Moon icon - visible in light mode (click to go dark) #}
+	{% include '@helmbench/01-atoms/icon/icon.twig' with {
+    name: 'moon',
+    size: 'md',
+    class: 'block dark:hidden',
+    aria_hidden: true
+  } %}
+</button>

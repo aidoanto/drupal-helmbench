@@ -26,6 +26,21 @@ global:
     # - core/once
     # - core/jquery (avoid if possible - use vanilla JS)
 
+# Note: Icon sprite is included inline in templates/layout/html.html.twig
+# via helmbench_preprocess_html() in helmbench.theme
+# No library definition needed since it's included directly in the HTML
+
+# Theme Toggle - Dark mode toggle button
+# Attach using {{ attach_library('helmbench/theme-toggle') }} in Twig.
+# See components/01-atoms/theme-toggle/_README.md for details.
+theme-toggle:
+  version: VERSION
+  js:
+    components/01-atoms/theme-toggle/theme-toggle.js: { attributes: { defer: true } }
+  dependencies:
+    - core/drupal
+    - core/once
+
 # Example: Component-specific library
 # Attach to specific components using {{ attach_library('helmbench/accordion') }} in Twig.
 #

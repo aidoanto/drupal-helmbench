@@ -1,0 +1,10 @@
+<figure class="space-y-2">
+	<div class="rounded-lg overflow-hidden">
+		{{ media }}
+	</div>
+	{% if caption %}
+		<figcaption class="text-sm text-slate-600">
+			{{ caption }}
+		</figcaption>
+	{% endif %}
+</figure>

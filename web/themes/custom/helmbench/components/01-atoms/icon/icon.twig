@@ -1,0 +1,54 @@
+{#
+  Icon Component
+
+  Renders a Lucide icon from an SVG sprite.
+
+  Variables:
+  - name: string (required) - Icon name from Lucide (e.g., 'chevron-right', 'user', 'alert-circle')
+  - size: string (optional) - Icon size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' (default: 'md')
+  - class: string (optional) - Additional CSS classes
+  - aria_label: string (optional) - Accessible label for screen readers
+  - aria_hidden: boolean (optional) - Hide from screen readers if decorative (default: false)
+
+  Usage:
+  {% include '@helmbench/01-atoms/icon/icon.twig' with {
+    name: 'chevron-right',
+    size: 'md'
+  } %}
+#}
+
+{% set size_classes = {
+  'xs': 'w-3 h-3',
+  'sm': 'w-4 h-4',
+  'md': 'w-5 h-5',
+  'lg': 'w-6 h-6',
+  'xl': 'w-8 h-8'
+} %}
+
+{% set icon_size = size|default('md') %}
+{% set size_class = size_classes[icon_size]|default(size_classes['md']) %}
+
+{% set classes = [
+  'icon',
+  'icon--' ~ name,
+  'icon--' ~ icon_size,
+  size_class,
+  class
+] | filter(v => v) | join(' ') %}
+
+<svg
+  class="{{ classes }}"
+  {% if aria_label %}
+    role="img"
+    aria-label="{{ aria_label }}"
+  {% elseif aria_hidden|default(false) %}
+    aria-hidden="true"
+  {% else %}
+    aria-hidden="true"
+  {% endif %}
+  {% if attributes %}
+    {{ attributes }}
+  {% endif %}
+>
+  <use href="#icon-{{ name }}"></use>
+</svg>
