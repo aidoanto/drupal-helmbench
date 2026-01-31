@@ -40,6 +40,40 @@ module.exports = {
     },
 
     extend: {
+      
+      // Typography Plugin Customization
+      // Configure the prose styles to use our custom color system
+      typography: {
+        DEFAULT: {
+          css: {
+            // Use our custom color variables for prose content
+            '--tw-prose-body': 'oklch(var(--text))',
+            '--tw-prose-headings': 'oklch(var(--secondary))',
+            '--tw-prose-links': 'oklch(var(--primary))',
+            '--tw-prose-bold': 'oklch(var(--text))',
+            '--tw-prose-counters': 'oklch(var(--text-muted))',
+            '--tw-prose-bullets': 'oklch(var(--text-muted))',
+            '--tw-prose-quotes': 'oklch(var(--text))',
+            '--tw-prose-code': 'oklch(var(--secondary))',
+            '--tw-prose-hr': 'oklch(var(--border))',
+            '--tw-prose-th-borders': 'oklch(var(--border))',
+            '--tw-prose-td-borders': 'oklch(var(--border-muted))',
+            
+            // Dark mode variants
+            '--tw-prose-invert-body': 'oklch(var(--text))',
+            '--tw-prose-invert-headings': 'oklch(var(--secondary))',
+            '--tw-prose-invert-links': 'oklch(var(--primary))',
+            '--tw-prose-invert-bold': 'oklch(var(--text))',
+            '--tw-prose-invert-counters': 'oklch(var(--text-muted))',
+            '--tw-prose-invert-bullets': 'oklch(var(--text-muted))',
+            '--tw-prose-invert-quotes': 'oklch(var(--text))',
+            '--tw-prose-invert-code': 'oklch(var(--secondary))',
+            '--tw-prose-invert-hr': 'oklch(var(--border))',
+            '--tw-prose-invert-th-borders': 'oklch(var(--border))',
+            '--tw-prose-invert-td-borders': 'oklch(var(--border-muted))',
+          },
+        },
+      },
 
       // Colors
       //

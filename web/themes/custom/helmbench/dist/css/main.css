@@ -567,38 +567,66 @@ video {
      * This allows Tailwind to inject opacity via the /<alpha-value> syntax.
      * Example: bg-bg/80 becomes oklch(0.96 0.02 79 / 0.8)
      */
-  --bg-deep: 0.92 0.02 79;
+  --bg-deep: 0.85 0.025 79;
+  /* oklch(0.85 0.025 79) */
   --bg: 0.96 0.02 79;
+  /* oklch(0.96 0.02 79) */
   --bg-shallow: 1 0.02 79;
+  /* oklch(1 0.02 79) */
   --text: 0.15 0.04 79;
+  /* oklch(0.15 0.04 79) */
   --text-muted: 0.4 0.04 79;
+  /* oklch(0.4 0.04 79) */
   --highlight: 1 0.04 79;
+  /* oklch(1 0.04 79) */
   --border: 0.6 0.04 79;
+  /* oklch(0.6 0.04 79) */
   --border-muted: 0.7 0.04 79;
+  /* oklch(0.7 0.04 79) */
   --primary: 0.4 0.1 79;
+  /* oklch(0.4 0.1 79) */
   --secondary: 0.4 0.1 259;
+  /* oklch(0.4 0.1 259) */
   --danger: 0.5 0.05 30;
+  /* oklch(0.5 0.05 30) */
   --warning: 0.5 0.05 100;
+  /* oklch(0.5 0.05 100) */
   --success: 0.5 0.05 160;
+  /* oklch(0.5 0.05 160) */
   --info: 0.5 0.05 260;
+  /* oklch(0.5 0.05 260) */
 }
 
 .dark {
   /* Dark mode values - same structure, different numbers */
   --bg-deep: 0.1 0.02 79;
+  /* oklch(0.1 0.02 79) */
   --bg: 0.15 0.02 79;
-  --bg-shallow: 0.2 0.02 79;
+  /* oklch(0.15 0.02 79) */
+  --bg-shallow: 0.25 0.02 79;
+  /* oklch(0.25 0.02 79) */
   --text: 0.96 0.04 79;
+  /* oklch(0.96 0.04 79) */
   --text-muted: 0.76 0.04 79;
+  /* oklch(0.76 0.04 79) */
   --highlight: 0.5 0.04 79;
+  /* oklch(0.5 0.04 79) */
   --border: 0.4 0.04 79;
+  /* oklch(0.4 0.04 79) */
   --border-muted: 0.3 0.04 79;
+  /* oklch(0.3 0.04 79) */
   --primary: 0.76 0.1 79;
+  /* oklch(0.76 0.1 79) */
   --secondary: 0.76 0.1 259;
+  /* oklch(0.76 0.1 259) */
   --danger: 0.7 0.05 30;
+  /* oklch(0.7 0.05 30) */
   --warning: 0.7 0.05 100;
+  /* oklch(0.7 0.05 100) */
   --success: 0.7 0.05 160;
+  /* oklch(0.7 0.05 160) */
   --info: 0.7 0.05 260;
+  /* oklch(0.7 0.05 260) */
 }
 
 html {
@@ -606,13 +634,19 @@ html {
 }
 
 body {
-  --tw-bg-opacity: 1;
-  background-color: oklch(var(--bg) / var(--tw-bg-opacity, 1));
   font-family: Inter, system-ui, sans-serif;
   line-height: 1.625;
   --tw-text-opacity: 1;
   color: oklch(var(--text) / var(--tw-text-opacity, 1));
+  background: linear-gradient(180deg, oklch(var(--bg-deep)), oklch(var(--bg-shallow)));
+  min-height: 100vh;
 }
+
+/* Base styles for all HTML elements
+   * These provide a consistent baseline across the site.
+   * The prose class (from @tailwindcss/typography) will override these
+   * for rich content areas with more refined spacing and typography.
+   */
 
 h1,
   h2,
@@ -1121,42 +1155,42 @@ code {
 }
 
 .prose {
-  --tw-prose-body: #374151;
-  --tw-prose-headings: #111827;
+  --tw-prose-body: oklch(var(--text));
+  --tw-prose-headings: oklch(var(--secondary));
   --tw-prose-lead: #4b5563;
-  --tw-prose-links: #111827;
-  --tw-prose-bold: #111827;
-  --tw-prose-counters: #6b7280;
-  --tw-prose-bullets: #d1d5db;
-  --tw-prose-hr: #e5e7eb;
-  --tw-prose-quotes: #111827;
+  --tw-prose-links: oklch(var(--primary));
+  --tw-prose-bold: oklch(var(--text));
+  --tw-prose-counters: oklch(var(--text-muted));
+  --tw-prose-bullets: oklch(var(--text-muted));
+  --tw-prose-hr: oklch(var(--border));
+  --tw-prose-quotes: oklch(var(--text));
   --tw-prose-quote-borders: #e5e7eb;
   --tw-prose-captions: #6b7280;
   --tw-prose-kbd: #111827;
   --tw-prose-kbd-shadows: rgb(17 24 39 / 10%);
-  --tw-prose-code: #111827;
+  --tw-prose-code: oklch(var(--secondary));
   --tw-prose-pre-code: #e5e7eb;
   --tw-prose-pre-bg: #1f2937;
-  --tw-prose-th-borders: #d1d5db;
-  --tw-prose-td-borders: #e5e7eb;
-  --tw-prose-invert-body: #d1d5db;
-  --tw-prose-invert-headings: #fff;
+  --tw-prose-th-borders: oklch(var(--border));
+  --tw-prose-td-borders: oklch(var(--border-muted));
+  --tw-prose-invert-body: oklch(var(--text));
+  --tw-prose-invert-headings: oklch(var(--secondary));
   --tw-prose-invert-lead: #9ca3af;
-  --tw-prose-invert-links: #fff;
-  --tw-prose-invert-bold: #fff;
-  --tw-prose-invert-counters: #9ca3af;
-  --tw-prose-invert-bullets: #4b5563;
-  --tw-prose-invert-hr: #374151;
-  --tw-prose-invert-quotes: #f3f4f6;
+  --tw-prose-invert-links: oklch(var(--primary));
+  --tw-prose-invert-bold: oklch(var(--text));
+  --tw-prose-invert-counters: oklch(var(--text-muted));
+  --tw-prose-invert-bullets: oklch(var(--text-muted));
+  --tw-prose-invert-hr: oklch(var(--border));
+  --tw-prose-invert-quotes: oklch(var(--text));
   --tw-prose-invert-quote-borders: #374151;
   --tw-prose-invert-captions: #9ca3af;
   --tw-prose-invert-kbd: #fff;
   --tw-prose-invert-kbd-shadows: rgb(255 255 255 / 10%);
-  --tw-prose-invert-code: #fff;
+  --tw-prose-invert-code: oklch(var(--secondary));
   --tw-prose-invert-pre-code: #d1d5db;
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
-  --tw-prose-invert-th-borders: #4b5563;
-  --tw-prose-invert-td-borders: #374151;
+  --tw-prose-invert-th-borders: oklch(var(--border));
+  --tw-prose-invert-td-borders: oklch(var(--border-muted));
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -1313,10 +1347,6 @@ code {
   margin: 1rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
 .block {
   display: block;
 }
@@ -1397,24 +1427,8 @@ code {
   grid-template-columns: 16rem 1fr 16rem;
 }
 
-.grid-cols-\[16rem_minmax\(0\2c 1fr\)_16rem\] {
-  grid-template-columns: 16rem minmax(0,1fr) 16rem;
-}
-
 .content-center {
   align-content: center;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.justify-items-end {
-  justify-items: end;
-}
-
-.gap-8 {
-  gap: 2rem;
 }
 
 .gap-4 {
@@ -1447,11 +1461,6 @@ code {
   text-align: right;
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
 .text-danger {
   --tw-text-opacity: 1;
   color: oklch(var(--danger) / var(--tw-text-opacity, 1));
@@ -1460,11 +1469,6 @@ code {
 .text-primary {
   --tw-text-opacity: 1;
   color: oklch(var(--primary) / var(--tw-text-opacity, 1));
-}
-
-.text-slate-600 {
-  --tw-text-opacity: 1;
-  color: rgb(71 85 105 / var(--tw-text-opacity, 1));
 }
 
 .text-success {
