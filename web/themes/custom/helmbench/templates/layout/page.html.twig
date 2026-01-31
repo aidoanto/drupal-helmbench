@@ -70,12 +70,12 @@
 
   <div class="column">
     {# Main Content Region #}
-    <main id="main-content" class="region-content" role="main">
+    <main id="main-content" class="region-content prose prose-lg max-w-none" role="main">
       {{ page.content }}
     </main>
 
     {% if page.footer %}
-      <footer class="region-footer" role="contentinfo">
+      <footer class="region-footer prose" role="contentinfo">
         {{ page.footer }}
       </footer>
     {% endif %}

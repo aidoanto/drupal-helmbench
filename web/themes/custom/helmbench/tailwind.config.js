@@ -42,11 +42,12 @@ module.exports = {
     extend: {
       
       // Typography Plugin Customization
-      // Configure the prose styles to use our custom color system
-      typography: {
+      // All typography styling is centralized here via the prose class.
+      // Apply prose to content areas: <article class="prose">...</article>
+      typography: (theme) => ({
         DEFAULT: {
           css: {
-            // Use our custom color variables for prose content
+            // Colors - use our custom color system
             '--tw-prose-body': 'oklch(var(--text))',
             '--tw-prose-headings': 'oklch(var(--secondary))',
             '--tw-prose-links': 'oklch(var(--primary))',
@@ -59,7 +60,7 @@ module.exports = {
             '--tw-prose-th-borders': 'oklch(var(--border))',
             '--tw-prose-td-borders': 'oklch(var(--border-muted))',
             
-            // Dark mode variants
+            // Dark mode color variants (when using dark:prose-invert)
             '--tw-prose-invert-body': 'oklch(var(--text))',
             '--tw-prose-invert-headings': 'oklch(var(--secondary))',
             '--tw-prose-invert-links': 'oklch(var(--primary))',
@@ -71,9 +72,25 @@ module.exports = {
             '--tw-prose-invert-hr': 'oklch(var(--border))',
             '--tw-prose-invert-th-borders': 'oklch(var(--border))',
             '--tw-prose-invert-td-borders': 'oklch(var(--border-muted))',
+
+            // Typography details
+            // Use our custom font families
+            'h1, h2, h3': {
+              fontFamily: theme('fontFamily.headings').join(', '),
+            },
+            code: {
+              fontFamily: theme('fontFamily.mono').join(', '),
+            },
+            
+            // Links - already colored via prose variables above
+            a: {
+              textDecoration: 'underline',
+              textUnderlineOffset: '2px',
+              fontWeight: '500',
+            },
           },
         },
-      },
+      }),
 
       // Colors
       //
