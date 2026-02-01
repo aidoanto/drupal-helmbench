@@ -94,8 +94,20 @@
 
   body {
     @apply text-text font-sans leading-relaxed;
-    background: linear-gradient(180deg, oklch(var(--bg-deep)), oklch(var(--bg-shallow)));
+    /* Background gradient moved to .page-wrapper::before for fixed positioning */
     min-height: 100vh;
+  }
+
+  /* Fixed gradient background that doesn't scroll with content */
+  .page-wrapper::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(180deg, oklch(var(--bg-deep)), oklch(var(--bg-shallow)));
+    z-index: -1; /* Keep it behind all content */
   }
 
   /* All typography styling is now centralized in the prose class

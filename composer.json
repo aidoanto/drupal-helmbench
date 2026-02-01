@@ -30,6 +30,7 @@
         "drupal/paragraphs": "^1.20",
         "drupal/pathauto": "^1.14",
         "drupal/smart_trim": "^2.3",
+        "drupal/toc_filter": "^2.4",
         "drupal/token": "^1.17"
     },
     "conflict": {

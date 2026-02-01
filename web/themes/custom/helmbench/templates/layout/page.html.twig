@@ -31,11 +31,6 @@
 
 {# TODO: Replace this basic structure with your page layout component #}
 
-{% set classes = classes.addClass(
-  'page-wrapper',
-  'grid',
-  'grid-cols-[16rem_1fr_16rem]',
-) %}
 {# Theme Toggle - Dark mode toggle button in top right corner #}
 {{ attach_library('helmbench/theme-toggle') }}
 <div class="m-4 fixed top-4 right-4 z-50">
@@ -58,11 +53,13 @@
   #}
 
   {# Navigation Region #}
-  <div class="column content-center m-4">
+  <div class="column content-center m-4 max-h-screen sticky top-0">
     {# {% if page.navigation %} #}
-    <nav class="region-navigation" role="navigation" aria-label="{{ 'Main navigation'|t }}">
-      <h2><a href="https://zombo.com">HELMBench</a></h2>
-      <h2><a href="https://zombo.com">About me</a></h2>
+    
+    <nav class="region-navigation prose prose-lg" role="navigation" aria-label="{{ 'Main navigation'|t }}">
+      {{ page.navigation }}
+      <h2><a href="https://zombo.com" class="text-secondary no-underline hover:underline font-semibold">HELMBench</a></h2>
+      <h2><a href="https://zombo.com" class="text-secondary no-underline hover:underline font-semibold">About me</a></h2>
       {# {{ page.navigation }} #}
     </nav>
   {# {% endif %} #}
@@ -81,18 +78,15 @@
     {% endif %}
   </div>
 
-  <div class="column content-center text-right m-4">
+  <div class="column content-center text-right m-4 max-h-screen sticky top-0">
 
 
     {# Table of Contents Region #}
-    {# {% if page.table_of_contents %} #}
-    <aside class="region-toc" role="complementary" aria-label="{{ 'Table of contents'|t }}">
+    {% if page.table_of_contents %}
+    <aside class="region-toc prose" role="complementary" aria-label="{{ 'Table of contents'|t }}">
       {{ page.table_of_contents }}
-      <h2>Subheading 1</h2>
-      <h2>Subheading 2</h2>
-      <h2>Subheading 3</h2>
     </aside>
-    {# {% endif %} #}
+    {% endif %}
   </div>
 
   {# Footer Region #}
