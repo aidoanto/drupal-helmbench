@@ -1,0 +1,14 @@
+{# Simple collapsible accordion component, using Tailwind CSS #}
+<details class="accordion border border-border rounded-lg p-4 mt-8 bg-bg-alternate">
+	<summary class="accordion-item-header flex items-center">
+		<h3 class="accordion-item-title prose prose-lg m-0 p-2">{{ heading }}</h3>
+		<span class="icon-container transition-transform ease-in-out duration-400 ml-auto m-2 flex">{% include '@helmbench/01-atoms/icon/icon.twig' with {
+			name: 'chevron-down',
+			class: 'text-secondary'
+		} %}
+		</span>
+	</summary>
+	<div class="accordion-item-content prose p-2">
+		{{ content }}
+	</div>
+</details>

@@ -1,0 +1,57 @@
+{# Attach libraries #}
+{{ attach_library('helmbench/theme-toggle') }}
+{{ attach_library('helmbench/global') }}
+
+{# Theme Toggle - Desktop only (top right corner) #}
+<div class="fixed top-4 right-4 z-50 hidden lg:block">
+	{% include '@helmbench/01-atoms/theme-toggle/theme-toggle.twig' %}
+</div>
+
+{# Mobile Navigation Drawer (includes theme toggle at bottom) #}
+{% include '@helmbench/02-molecules/mobile-nav/mobile-nav.twig' with {
+	navigation: page.navigation
+} %}
+
+{# Page wrapper with responsive grid #}
+<div
+	class="page-wrapper grid gap-4 grid-cols-1 lg:grid-cols-[1fr_minmax(0,75ch)_1fr]">
+
+	{# Navigation Region - Desktop only #}
+	<div class="column hidden lg:block content-center m-4 max-h-screen sticky top-0">
+		<nav class="region-navigation prose prose-lg" role="navigation" aria-label="{{ 'Main navigation'|t }}">
+			{{ page.navigation }}
+		</nav>
+	</div>
+
+	{# Main Content Column #}
+	<div
+		class="column">
+		{# Mobile Sticky Header: TOC on left, hamburger on right #}
+		{% if page.table_of_contents %}
+			{% include '@helmbench/02-molecules/sticky-toc/sticky-toc.twig' with {
+				table_of_contents: page.table_of_contents
+			} %}
+		{% endif %}
+
+		{# Main Content Region #}
+		<main id="main-content" class="region-content prose prose-lg max-w-none px-4 lg:px-0" role="main">
+			{{ page.content }}
+		</main>
+
+		{% if page.footer %}
+			<footer class="region-footer prose px-4 lg:px-0" role="contentinfo">
+				{{ page.footer }}
+			</footer>
+		{% endif %}
+	</div>
+
+	{# Table of Contents Region - Desktop only #}
+	<div class="column hidden lg:block content-center text-right m-4 max-h-screen sticky top-0">
+		{% if page.table_of_contents %}
+			<aside class="region-toc prose" role="complementary" aria-label="{{ 'Table of contents'|t }}">
+				{{ page.table_of_contents }}
+			</aside>
+		{% endif %}
+	</div>
+
+</div>

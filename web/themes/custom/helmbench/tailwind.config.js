@@ -103,6 +103,7 @@ module.exports = {
         'bg': 'oklch(var(--bg) / <alpha-value>)',
         'bg-deep': 'oklch(var(--bg-deep) / <alpha-value>)',
         'bg-shallow': 'oklch(var(--bg-shallow) / <alpha-value>)',
+        'bg-alternate': 'oklch(var(--bg-alternate) / <alpha-value>)',
 
         // Backwards-compatible aliases (if you used these earlier)
         'bg-dark': 'oklch(var(--bg-deep) / <alpha-value>)',

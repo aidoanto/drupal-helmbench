@@ -81,5 +81,5 @@
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.perEditorGroup": 5,
     // set default theme to synthwave
-    "workbench.colorTheme": "SynthWave '84"
+    "workbench.colorTheme": "SynthWave '84",
 }

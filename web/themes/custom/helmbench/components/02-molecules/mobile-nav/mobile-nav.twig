@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Mobile Navigation Drawer Component
+ *
+ * Slide-in drawer from the right containing:
+ * - Navigation menu
+ * - Theme toggle at the bottom
+ *
+ * Triggered by hamburger button in sticky header.
+ *
+ * Variables:
+ * - navigation: The navigation region content from Drupal
+ *
+ * Behavior (via JavaScript):
+ * - Opens when hamburger button is clicked
+ * - Closes when overlay is clicked
+ * - Closes when Escape key is pressed
+ * - Closes when a navigation link is clicked
+ */
+#}
+
+{# Overlay - darkens page content when drawer is open #}
+<div 
+	class="mobile-nav-overlay"
+	aria-hidden="true"
+></div>
+
+{# Navigation Drawer #}
+<nav 
+	id="mobile-nav-drawer"
+	class="mobile-nav-drawer flex flex-col"
+	role="navigation"
+	aria-label="{{ 'Main navigation'|t }}"
+	aria-hidden="true"
+>
+	{# Drawer Header with close button #}
+	<div class="mobile-nav__header flex items-center justify-between p-4 border-b border-border-muted">
+		<span class="font-headings text-lg text-secondary">{{ 'Menu'|t }}</span>
+		<button 
+			class="mobile-nav-close p-2 -mr-2"
+			aria-label="{{ 'Close navigation menu'|t }}"
+		>
+			{% include '@helmbench/01-atoms/icon/icon.twig' with {
+				name: 'x',
+				size: 'lg',
+				aria_hidden: true
+			} %}
+		</button>
+	</div>
+
+	{# Navigation Links #}
+	<div class="mobile-nav__content flex-1 p-4 overflow-y-auto">
+		<div class="mobile-nav__list prose prose-lg">
+			{{ navigation }}
+		</div>
+	</div>
+
+	{# Footer with theme toggle - bottom right #}
+	<div class="mobile-nav__footer flex justify-end p-4 border-t border-border-muted">
+		{% include '@helmbench/01-atoms/theme-toggle/theme-toggle.twig' %}
+	</div>
+</nav>

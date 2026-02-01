@@ -564,6 +564,7 @@ video {
 
 :root {
   /* Store only the OKLCH components (L C H) - not the full oklch() function.
+     * LCH = Lightness, Chroma, Hue.
      * This allows Tailwind to inject opacity via the /<alpha-value> syntax.
      * Example: bg-bg/80 becomes oklch(0.96 0.02 79 / 0.8)
      */
@@ -573,6 +574,8 @@ video {
   /* oklch(0.96 0.02 79) */
   --bg-shallow: 1 0.02 79;
   /* oklch(1 0.02 79) */
+  --bg-alternate: 0.9 0.04 79;
+  /* oklch(0.9 0.025 79) */
   --text: 0.15 0.04 79;
   /* oklch(0.15 0.04 79) */
   --text-muted: 0.4 0.04 79;
@@ -598,13 +601,15 @@ video {
 }
 
 .dark {
-  /* Dark mode values - same structure, different numbers */
+  /* Dark mode values - darker colors */
   --bg-deep: 0.1 0.02 79;
   /* oklch(0.1 0.02 79) */
   --bg: 0.15 0.02 79;
   /* oklch(0.15 0.02 79) */
   --bg-shallow: 0.25 0.02 79;
   /* oklch(0.25 0.02 79) */
+  --bg-alternate: 0.28 0.03 79;
+  /* oklch(0.28 0.03 79) */
   --text: 0.96 0.04 79;
   /* oklch(0.96 0.04 79) */
   --text-muted: 0.76 0.04 79;
@@ -662,6 +667,34 @@ body {
    */
 
 /* Tailwind Components - Component classes */
+
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+  }
+}
 
 .prose {
   color: var(--tw-prose-body);
@@ -1421,25 +1454,289 @@ body {
   margin-bottom: 0;
 }
 
-/* TODO: Add reusable component classes */
+/* ==========================================================================
+   * Accordion Component
+   * ========================================================================== */
 
-/* Example:
-  .btn {
-    @apply px-4 py-2 rounded font-medium transition-colors;
-  }
+.accordion summary {
+  list-style: none;
+}
 
-  .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary/90;
-  }
+.accordion[open] .icon-container {
+  transform: rotate(180deg);
+}
 
-  .card {
-    @apply bg-white rounded-lg shadow-md p-6;
-  }
+/* ==========================================================================
+   * Mobile Navigation Drawer
+   * Slide-in drawer from the right with overlay
+   * ========================================================================== */
 
-  .container-content {
-    @apply max-w-4xl mx-auto px-4;
-  }
-  */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 40;
+  background-color: rgb(0 0 0 / 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-nav-overlay.is-open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 50;
+  width: 18rem;
+  max-width: 80vw;
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--bg) / var(--tw-bg-opacity, 1));
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.mobile-nav-drawer.is-open {
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+/* Nav items in mobile drawer - active/inactive styling */
+
+.mobile-nav__list a {
+  display: block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.mobile-nav__list a.is-active {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+}
+
+.mobile-nav__list a:not(.is-active) {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   * Mobile Sticky TOC Header
+   * Shows current section, expands to show full TOC list
+   * ========================================================================== */
+
+.sticky-toc__trigger {
+  cursor: pointer;
+}
+
+/* Rotate chevron when dropdown is open (chevron-up rotates to point down) */
+
+.sticky-toc__trigger[aria-expanded="true"] .sticky-toc__icon-container {
+  transform: rotate(180deg);
+}
+
+.sticky-toc__dropdown {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--bg) / var(--tw-bg-opacity, 1));
+  border-bottom-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: oklch(var(--border-muted) / var(--tw-border-opacity, 1));
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  max-height: 60vh;
+  overflow-y: auto;
+  transition-property: all;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hide placeholder text once JS has loaded the current section */
+
+.sticky-toc__current:not(:empty) .sticky-toc__placeholder {
+  display: none;
+}
+
+/* TOC list in mobile dropdown - built by JavaScript */
+
+.sticky-toc__list {
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+
+.sticky-toc__list li {
+  list-style-type: none;
+}
+
+/* TOC links - default styling (inactive) */
+
+.sticky-toc__list .toc-link {
+  --tw-text-opacity: 1;
+  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+}
+
+/* H1 link always in primary color */
+
+.sticky-toc__list .toc-link--h1 {
+  --tw-text-opacity: 1;
+  color: oklch(var(--primary) / var(--tw-text-opacity, 1));
+}
+
+/* Active link - larger text, full opacity */
+
+.sticky-toc__list .toc-link.is-active {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  opacity: 1;
+}
+
+/* Inactive links - smaller text, 50% opacity */
+
+.sticky-toc__list .toc-link:not(.is-active) {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.5;
+}
+
+/* But H1 is always fully visible even when inactive */
+
+.sticky-toc__list .toc-link--h1:not(.is-active) {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   * Desktop TOC Sidebar
+   * Dynamically built from page headings, same as mobile
+   * ========================================================================== */
+
+/* Desktop TOC list styling */
+
+.region-toc ul {
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+
+.region-toc li {
+  list-style-type: none;
+}
+
+/* TOC links - base styling */
+
+.region-toc .toc-link {
+  display: block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* H1 link always in primary color */
+
+.region-toc .toc-link--h1 {
+  --tw-text-opacity: 1;
+  color: oklch(var(--primary) / var(--tw-text-opacity, 1));
+}
+
+/* Active state - larger, full opacity */
+
+.region-toc .toc-link.is-active {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  opacity: 1;
+}
+
+/* Inactive state - smaller, 50% opacity */
+
+.region-toc .toc-link:not(.is-active) {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.5;
+}
+
+/* H1 always visible even when inactive */
+
+.region-toc .toc-link--h1:not(.is-active) {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   * Desktop Navigation Sidebar
+   * Active/inactive styling for nav items
+   * ========================================================================== */
+
+.region-navigation a {
+  display: block;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Active page - larger, full opacity */
+
+.region-navigation a.is-active,
+  .region-navigation a.is-active-trail {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  opacity: 1;
+}
+
+/* Inactive pages - smaller, 50% opacity */
+
+.region-navigation a:not(.is-active):not(.is-active-trail) {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   * TOC Filter Module - Hide unwanted features
+   * The TOC Filter module forces a title and back-to-top links even when
+   * settings are empty. Hide them with CSS since the module won't let us
+   * disable them properly.
+   * ========================================================================== */
+
+/* Hide the "Table of contents" title - it's generated by the block not the module */
+
+#block-helmbench-tableofcontents > h2,
+  .region-toc > div > div > h2 {
+  display: none;
+}
+
+/* Hide the "Back to top" links */
+
+.toc-back-to-top,
+  a[href="#top"],
+  a[class*="back-to-top"],
+  .back-to-top {
+  display: none;
+}
 
 /* Tailwind Utilities - Utility classes */
 
@@ -1467,12 +1764,36 @@ body {
   top: 1rem;
 }
 
+.z-40 {
+  z-index: 40;
+}
+
 .z-50 {
   z-index: 50;
 }
 
+.m-0 {
+  margin: 0px;
+}
+
+.m-2 {
+  margin: 0.5rem;
+}
+
 .m-4 {
   margin: 1rem;
+}
+
+.-mr-2 {
+  margin-right: -0.5rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mt-8 {
+  margin-top: 2rem;
 }
 
 .block {
@@ -1523,6 +1844,10 @@ body {
   height: 2rem;
 }
 
+.max-h-\[60vh\] {
+  max-height: 60vh;
+}
+
 .max-h-screen {
   max-height: 100vh;
 }
@@ -1551,12 +1876,40 @@ body {
   max-width: none;
 }
 
+.flex-1 {
+  flex: 1 1 0%;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
 
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
 .content-center {
   align-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-4 {
@@ -1573,6 +1926,16 @@ body {
   overflow: hidden;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1581,16 +1944,94 @@ body {
   border-radius: 0.375rem;
 }
 
+.border {
+  border-width: 1px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-l {
+  border-left-width: 1px;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-border {
+  --tw-border-opacity: 1;
+  border-color: oklch(var(--border) / var(--tw-border-opacity, 1));
+}
+
+.border-border-muted {
+  --tw-border-opacity: 1;
+  border-color: oklch(var(--border-muted) / var(--tw-border-opacity, 1));
+}
+
+.bg-bg {
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--bg) / var(--tw-bg-opacity, 1));
+}
+
+.bg-bg-alternate {
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--bg-alternate) / var(--tw-bg-opacity, 1));
+}
+
+.bg-bg\/95 {
+  background-color: oklch(var(--bg) / 0.95);
+}
+
 .p-2 {
   padding: 0.5rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-right {
   text-align: right;
 }
 
-.font-semibold {
-  font-weight: 600;
+.font-headings {
+  font-family: "Archivo Narrow", system-ui, sans-serif;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .text-danger {
@@ -1613,18 +2054,50 @@ body {
   color: oklch(var(--success) / var(--tw-text-opacity, 1));
 }
 
-.no-underline {
-  text-decoration-line: none;
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.backdrop-blur {
+  --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* TODO: Add custom utilities if needed */
@@ -1656,14 +2129,29 @@ body {
   background-color: oklch(var(--bg-deep) / var(--tw-bg-opacity, 1));
 }
 
-.hover\:underline:hover {
-  text-decoration-line: underline;
-}
-
 .dark\:block:is(.dark *) {
   display: block;
 }
 
 .dark\:hidden:is(.dark *) {
   display: none;
+}
+
+@media (min-width: 1024px) {
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:grid-cols-\[1fr_minmax\(0\2c 75ch\)_1fr\] {
+    grid-template-columns: 1fr minmax(0,75ch) 1fr;
+  }
+
+  .lg\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
 }

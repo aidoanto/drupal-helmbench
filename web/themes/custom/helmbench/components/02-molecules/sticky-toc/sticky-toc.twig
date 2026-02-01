@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * Mobile Header Component
+ *
+ * Sticky header for mobile that contains:
+ * - TOC dropdown trigger on the left (shows current section)
+ * - Hamburger menu button on the right
+ *
+ * The TOC list is built dynamically by JavaScript from page headings (H1 + H2s).
+ *
+ * Behavior (via JavaScript):
+ * - TOC: Shows current section title based on scroll position
+ * - TOC: Toggles dropdown open/closed on click
+ * - TOC: Builds list from H1 + H2 headings on the page
+ * - Hamburger: Opens the mobile navigation drawer
+ */
+#}
+
+<header class="sticky-toc lg:hidden sticky top-0 z-40 bg-bg/95 backdrop-blur border-b border-border-muted">
+	<div
+		class="flex items-center justify-between">
+		{# TOC Trigger - Left side: shows current section #}
+		<button class="sticky-toc__trigger flex items-center gap-2 flex-1 p-4 text-left font-headings" aria-expanded="false" aria-controls="sticky-toc-dropdown">
+			<span class="sticky-toc__icon-container transition-transform duration-200">
+				{% include '@helmbench/01-atoms/icon/icon.twig' with {
+					name: 'chevron-up',
+					size: 'sm',
+					class: 'text-secondary',
+					aria_hidden: true
+				} %}
+			</span>
+			<span
+				class="sticky-toc__current text-lg text-secondary truncate">
+				{# This will be populated by JavaScript with the current section title #}
+				<span class="sticky-toc__placeholder">{{ 'Table of Contents'|t }}</span>
+			</span>
+		</button>
+
+		{# Hamburger Menu Button - Right side #}
+		<button class="mobile-nav-toggle p-4 border-l border-border-muted" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="{{ 'Open navigation menu'|t }}">
+			{% include '@helmbench/01-atoms/icon/icon.twig' with {
+				name: 'menu',
+				size: 'lg',
+				aria_hidden: true
+			} %}
+		</button>
+	</div>
+
+	{# Dropdown panel with TOC list - built by JavaScript from page headings #}
+	<nav id="sticky-toc-dropdown" class="sticky-toc__dropdown hidden" aria-hidden="true" aria-label="{{ 'Table of contents'|t }}">
+		<div
+			class="sticky-toc__dropdown-inner px-4 py-2 bg-bg shadow-lg max-h-[60vh] overflow-y-auto">
+			{# TOC list will be populated by JavaScript from H1 + H2 headings #}
+			<ul
+				class="sticky-toc__list font-headings">{# JS builds: <li><a href="#id" class="toc-link toc-link--h1|h2 is-active">Title</a></li> #}
+			</ul>
+		</div>
+	</nav>
+</header>

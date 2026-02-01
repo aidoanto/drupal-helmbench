@@ -11,20 +11,15 @@ global:
     # CSS categories (SMACSS): base, layout, component, state, theme
     # Lower weight = loads first. Use weights to control cascade order.
     theme:
-      # TODO: This is your compiled Tailwind CSS output.
-      # Run your build process to generate this file.
+      # Compiled Tailwind CSS output
       dist/css/main.css: {}
   js:
-    # TODO: Add your compiled JS here if needed.
-    # dist/js/main.js: {}
-    #   attributes:
-    #     defer: true
+    # Main JavaScript with scroll-spy, mobile nav, and TOC dropdown
+    src/js/main.js: {}
   dependencies:
-    # Core dependencies your theme might need.
-    # TODO: Uncomment as needed.
-    # - core/drupal
-    # - core/once
-    # - core/jquery (avoid if possible - use vanilla JS)
+    # Required for Drupal.behaviors and once()
+    - core/drupal
+    - core/once
 
 # Note: Icon sprite is included inline in templates/layout/html.html.twig
 # via helmbench_preprocess_html() in helmbench.theme
@@ -36,7 +31,7 @@ global:
 theme-toggle:
   version: VERSION
   js:
-    components/01-atoms/theme-toggle/theme-toggle.js: { attributes: { defer: true } }
+    components/01-atoms/theme-toggle/theme-toggle.js: {}
   dependencies:
     - core/drupal
     - core/once

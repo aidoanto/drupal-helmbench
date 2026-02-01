@@ -15,80 +15,13 @@
  * 1. Include your layout component from components/04-templates/
  * 2. Pass region variables to the component
  * 3. Handle mobile vs desktop layout differences
- *
- * Example final implementation:
- * {% include '@helmbench/04-templates/page-default/page-default.twig' with {
- *   navigation: page.navigation,
- *   content: page.content,
- *   table_of_contents: page.table_of_contents,
- *   footer: page.footer,
- * } %}
- *
- * @see template_preprocess_page()
- * @see html.html.twig
  */
 #}
 
-{# TODO: Replace this basic structure with your page layout component #}
 
-{# Theme Toggle - Dark mode toggle button in top right corner #}
-{{ attach_library('helmbench/theme-toggle') }}
-<div class="m-4 fixed top-4 right-4 z-50">
-  {% include '@helmbench/01-atoms/theme-toggle/theme-toggle.twig' %}
-</div>
-<div class="page-wrapper grid gap-4" style="grid-template-columns: 1fr minmax(0, 75ch) 1fr;">
-  {#
-    Desktop Layout:
-    - Navigation on left
-    - Main content in center
-    - Table of contents on right
-    - Footer at bottom
-
-    Mobile Layout:
-    - Fixed header with TOC toggle and menu button
-    - Main content
-    - Footer
-
-    See context.md for full layout specifications.
-  #}
-
-  {# Navigation Region #}
-  <div class="column content-center m-4 max-h-screen sticky top-0">
-    {# {% if page.navigation %} #}
-    
-    <nav class="region-navigation prose prose-lg" role="navigation" aria-label="{{ 'Main navigation'|t }}">
-      {{ page.navigation }}
-      <h2><a href="https://zombo.com" class="text-secondary no-underline hover:underline font-semibold">HELMBench</a></h2>
-      <h2><a href="https://zombo.com" class="text-secondary no-underline hover:underline font-semibold">About me</a></h2>
-      {# {{ page.navigation }} #}
-    </nav>
-  {# {% endif %} #}
-  </div>
-
-  <div class="column">
-    {# Main Content Region #}
-    <main id="main-content" class="region-content prose prose-lg max-w-none" role="main">
-      {{ page.content }}
-    </main>
-
-    {% if page.footer %}
-      <footer class="region-footer prose" role="contentinfo">
-        {{ page.footer }}
-      </footer>
-    {% endif %}
-  </div>
-
-  <div class="column content-center text-right m-4 max-h-screen sticky top-0">
-
-
-    {# Table of Contents Region #}
-    {% if page.table_of_contents %}
-    <aside class="region-toc prose" role="complementary" aria-label="{{ 'Table of contents'|t }}">
-      {{ page.table_of_contents }}
-    </aside>
-    {% endif %}
-  </div>
-
-  {# Footer Region #}
-
-</div>
+{% include '@helmbench/04-templates/page-default/page-default.twig' with {
+  navigation: page.navigation,
+  content: page.content,
+  table_of_contents: page.table_of_contents,
+  footer: page.footer,
+} %}
