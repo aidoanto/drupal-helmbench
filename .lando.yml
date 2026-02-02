@@ -30,3 +30,15 @@ tooling:
     service: appserver
   npx:
     service: appserver
+  backup:
+    service: appserver
+    description: Create a database backup
+    cmd: /app/scripts/backup.sh
+  restore:
+    service: appserver
+    description: Restore a database backup
+    cmd: /app/scripts/restore.sh
+  health-check:
+    service: appserver
+    description: Check database health and connectivity
+    cmd: /app/scripts/health-check.sh
