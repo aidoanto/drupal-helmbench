@@ -307,6 +307,39 @@
   .back-to-top {
     @apply hidden;
   }
+
+  /* ==========================================================================
+   * Content Width Grid - Variable Width Layout
+   * Allows content to be regular (70ch) or wide (90ch) on desktop/tablet.
+   * On mobile, everything is full-width.
+   * ========================================================================== */
+  
+  /* Content grid with named lines - desktop and tablet only */
+  @screen md {
+    .content-grid {
+      --content-width: 70ch;
+      --wide-width: 90ch;
+      
+      display: grid;
+      grid-template-columns:
+        [full-start] 1fr
+        [wide-start] minmax(0, calc((var(--wide-width) - var(--content-width)) / 2))
+        [content-start] min(100% - 2rem, var(--content-width))
+        [content-end] minmax(0, calc((var(--wide-width) - var(--content-width)) / 2))
+        [wide-end] 1fr
+        [full-end];
+    }
+
+    /* All direct children default to content width */
+    .content-grid > * {
+      grid-column: content;
+    }
+
+    /* Wide variant spans the wide track */
+    .content-grid > .width-wide {
+      grid-column: wide;
+    }
+  }
 }
 
 /**

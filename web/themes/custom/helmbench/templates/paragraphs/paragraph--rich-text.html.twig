@@ -1,4 +1,9 @@
 {# templates/paragraphs/paragraph--rich-text.html.twig #}
-{% include '@molecules/rich-text/rich-text.twig' with {
-  content: content.field_content
-} %}
+{# Get width setting, default to 'regular' if field doesn't exist #}
+{% set width = paragraph.field_width.value ?? 'regular' %}
+{% set width_class = width == 'wide' ? 'width-wide' : '' %}
+
+	<div class="{{ width_class }}"> {% include '@molecules/rich-text/rich-text.twig' with {
+    content: content.field_content
+  } %}
+</div>

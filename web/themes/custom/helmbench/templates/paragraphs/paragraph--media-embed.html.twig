@@ -1,4 +1,10 @@
-{% include '@helmbench/02-molecules/media-embed/media-embed.twig' with {
-  media: content.field_media,
-  caption: content.field_caption
-} %}
+{# Get width setting, default to 'regular' if field doesn't exist #}
+{% set width = paragraph.field_width.value ?? 'regular' %}
+{% set width_class = width == 'wide' ? 'width-wide' : '' %}
+
+<div class="{{ width_class }}">
+	{% include '@helmbench/02-molecules/media-embed/media-embed.twig' with {
+    media: content.field_media,
+    caption: content.field_caption
+  } %}
+</div>

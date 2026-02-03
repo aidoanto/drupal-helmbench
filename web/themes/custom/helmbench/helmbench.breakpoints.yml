@@ -45,7 +45,7 @@ helmbench.wide:
     - 1x
     - 2x
   # Wide: 1440px+
-
+  
 # TODO: After defining breakpoints:
 # 1. Go to Admin > Configuration > Media > Image styles - create image styles
 # 2. Go to Admin > Configuration > Media > Responsive image styles - map breakpoints to image styles
