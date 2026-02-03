@@ -13,10 +13,9 @@
 } %}
 
 {# Page wrapper with responsive grid #}
-<div
-	class="page-wrapper grid gap-4 grid-cols-1 lg:grid-cols-[1fr_minmax(0,75ch)_1fr]">
-
-	{# Navigation Region - Desktop only #}
+{# Main column is 90ch to allow wide content; regular content constrained to 70ch via CSS #}
+	<div
+	class="page-wrapper grid gap-4 grid-cols-1 lg:grid-cols-[1fr_minmax(0,90ch)_1fr]"> {# Navigation Region - Desktop only #}
 	<div class="column hidden lg:block content-center m-4 max-h-screen sticky top-0">
 		<nav class="region-navigation prose prose-lg" role="navigation" aria-label="{{ 'Main navigation'|t }}">
 			{{ page.navigation }}
@@ -24,18 +23,15 @@
 	</div>
 
 	{# Main Content Column #}
-	<div
-		class="column">
+	<div class="column">
 		{# Mobile Sticky Header: TOC on left, hamburger on right #}
-		{% if page.table_of_contents %}
-			{% include '@helmbench/02-molecules/sticky-toc/sticky-toc.twig' with {
-				table_of_contents: page.table_of_contents
-			} %}
-		{% endif %}
+		{# Always render - JS will populate with headings from the page #}
+		{% include '@helmbench/02-molecules/sticky-toc/sticky-toc.twig' with {
+			table_of_contents: page.table_of_contents
+		} %}
 
 		{# Main Content Region with variable width grid #}
-		<main id="main-content" class="region-content content-grid prose prose-lg max-w-none px-4 lg:px-0" role="main">
-			{{ page.content }}
+			<main id="main-content" class="region-content content-grid prose prose-lg max-w-none px-4 lg:px-0" role="main"> {{ page.content }}
 		</main>
 
 		{% if page.footer %}
@@ -46,12 +42,11 @@
 	</div>
 
 	{# Table of Contents Region - Desktop only #}
+	{# Always render - JS will populate with headings from the page #}
 	<div class="column hidden lg:block content-center text-right m-4 max-h-screen sticky top-0">
-		{% if page.table_of_contents %}
-			<aside class="region-toc prose" role="complementary" aria-label="{{ 'Table of contents'|t }}">
-				{{ page.table_of_contents }}
-			</aside>
-		{% endif %}
+		<aside class="region-toc prose" role="complementary" aria-label="{{ 'Table of contents'|t }}">
+			{{ page.table_of_contents }}
+		</aside>
 	</div>
 
 </div>

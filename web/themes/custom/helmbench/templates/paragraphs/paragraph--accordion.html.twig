@@ -1,6 +1,6 @@
-{# Get width setting, default to 'regular' if field doesn't exist #}
+{# Get width setting: 'wide' adds width-wide class, otherwise just content-block #}
 {% set width = paragraph.field_width.value ?? 'regular' %}
-{% set width_class = width == 'wide' ? 'width-wide' : '' %}
+{% set width_class = width == 'wide' ? 'content-block width-wide' : 'content-block' %}
 
 <div class="{{ width_class }}">
 	{% include '@helmbench/03-organisms/accordion/accordion.twig' with {

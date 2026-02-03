@@ -6,8 +6,8 @@ This guide explains how to add the width field to your paragraph types to enable
 
 The variable width feature allows content editors to choose between two content widths on desktop and tablet devices:
 
-- **Regular (70ch)**: The default, optimal for reading text
-- **Wide (90ch)**: Wider option, great for images, videos, and other visual content
+- **Regular (44rem / ~704px)**: The default, optimal for reading text
+- **Wide (56rem / ~896px)**: Wider option, great for images, videos, and other visual content
 
 On mobile devices, all content is full-width regardless of this setting.
 
@@ -177,11 +177,13 @@ Edit `web/themes/custom/helmbench/src/css/main.css`:
 
 ```css
 .content-grid {
-  --content-width: 70ch; /* Change regular width here */
-  --wide-width: 90ch; /* Change wide width here */
+  --content-width: 44rem; /* Change regular width here (~704px at 16px base) */
+  --wide-width: 56rem; /* Change wide width here (~896px at 16px base) */
   /* ... */
 }
 ```
+
+**Note**: We use `rem` units instead of `ch` because `ch` is relative to each element's font size, which can cause inconsistent widths when components have different font sizes (like callouts vs paragraphs). Using `rem` ensures all components align consistently.
 
 After changing, run `npm run build` to rebuild the CSS.
 

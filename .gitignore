@@ -65,3 +65,8 @@ drush/sites/*
 
 # Context file (personal project notes)
 # context.md
+
+backups/
+
+# Ignore Lando logs
+lando.log

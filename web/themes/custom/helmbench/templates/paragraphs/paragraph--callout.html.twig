@@ -3,8 +3,10 @@
 {% set width_class = width == 'wide' ? 'content-block width-wide' : 'content-block' %}
 
 <div class="{{ width_class }}">
-	{% include '@helmbench/02-molecules/media-embed/media-embed.twig' with {
-    media: content.field_media,
-    caption: content.field_caption
+	{% include '@helmbench/03-organisms/callout/callout.twig' with {
+    heading: content.field_heading,
+    content: content.field_content,
+    color: paragraph.field_color.value,
+    icon: paragraph.field_icon.value,
   } %}
 </div>

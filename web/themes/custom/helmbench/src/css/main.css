@@ -137,6 +137,63 @@
   }
 
   /* ==========================================================================
+   * Callout Component
+   * ========================================================================== */
+  /* Align icon with heading's vertical center when heading exists */
+  .callout .callout-heading {
+    /* Ensure heading has consistent line-height for alignment calculation */
+    line-height: 1.2;
+  }
+  
+  /* Calculate icon offset to align with heading center */
+  /* Heading line-height is ~1.2em, so center is at 0.6em from top */
+  /* Icon height is typically ~1.5em (24px), so center is at 0.75em from top */
+  /* Offset needed: 0.6em - 0.75em = -0.15em, but we start from top, so add 0.6em */
+  .callout:has(.callout-heading) .flex.items-start > .flex-shrink-0 {
+    margin-top: 0.15em;
+  }
+  
+  /* When there's no heading, center icon with content instead */
+  .callout:not(:has(.callout-heading)) .flex.items-start > .flex-shrink-0 {
+    margin-top: 0;
+    @apply self-center;
+  }
+  
+  /* Ensure content aligns with heading's left edge - remove any prose padding/margins */
+  .callout .callout-content {
+    @apply pl-0 ml-0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Remove all margins from content to ensure it starts at same position as heading */
+  .callout .callout-content > :first-child {
+    @apply mt-0;
+    margin-top: 0 !important;
+  }
+  
+  /* Ensure all elements inside content don't have left padding/margin */
+  .callout .callout-content > * {
+    @apply pl-0 ml-0;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Specifically target paragraphs inside content */
+  .callout .callout-content :where(p) {
+    @apply pl-0 ml-0;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Ensure heading and content start at same horizontal position */
+  .callout .callout-heading,
+  .callout .callout-content {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  /* ==========================================================================
    * Mobile Navigation Drawer
    * Slide-in drawer from the right with overlay
    * ========================================================================== */
@@ -312,32 +369,42 @@
    * Content Width Grid - Variable Width Layout
    * Allows content to be regular (70ch) or wide (90ch) on desktop/tablet.
    * On mobile, everything is full-width.
+   * 
+   * This uses max-width approach instead of CSS Grid columns because Drupal
+   * wraps content in many nested divs, and CSS Grid column spanning only
+   * works for direct children.
    * ========================================================================== */
   
-  /* Content grid with named lines - desktop and tablet only */
+  /* ==========================================================================
+   * Content Block - Paragraph Wrapper Widths
+   * 
+   * Clean, robust approach: Apply max-width to the wrapper div, not to
+   * individual elements. Content inside flows naturally.
+   * 
+   * Each paragraph template wraps its content in a div with class
+   * "content-block" (default width) or "content-block width-wide" (full width).
+   * ========================================================================== */
+  
+  .content-grid {
+    /* Width values in rem for consistency across all components */
+    --content-width: 44rem;  /* ~704px at 16px base */
+    --wide-width: 56rem;     /* ~896px at 16px base */
+  }
+  
+  /* Desktop and tablet only */
   @screen md {
-    .content-grid {
-      --content-width: 70ch;
-      --wide-width: 90ch;
-      
-      display: grid;
-      grid-template-columns:
-        [full-start] 1fr
-        [wide-start] minmax(0, calc((var(--wide-width) - var(--content-width)) / 2))
-        [content-start] min(100% - 2rem, var(--content-width))
-        [content-end] minmax(0, calc((var(--wide-width) - var(--content-width)) / 2))
-        [wide-end] 1fr
-        [full-end];
+    /* Default: content blocks are constrained and centered */
+    .content-grid .content-block {
+      max-width: var(--content-width);
+      margin-left: auto;
+      margin-right: auto;
     }
-
-    /* All direct children default to content width */
-    .content-grid > * {
-      grid-column: content;
-    }
-
-    /* Wide variant spans the wide track */
-    .content-grid > .width-wide {
-      grid-column: wide;
+    
+    /* Wide: content blocks span full container width */
+    .content-grid .content-block.width-wide {
+      max-width: none;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 }

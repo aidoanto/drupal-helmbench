@@ -1,0 +1,90 @@
+{#
+  Callout Component
+
+  A highlighted content block with optional icon and color variant.
+
+  Variables:
+  - heading: string (optional) - Callout heading/title
+  - content: string (required) - Callout content
+  - color: string (optional) - Color variant: 'info' | 'danger' | 'primary' | 'secondary' | 'success' | 'bg_alternate' (default: 'info')
+  - icon: string (optional) - Lucide icon name to display (e.g., 'info', 'alert-circle', 'check-circle')
+
+  Usage:
+  {% include '@helmbench/03-organisms/callout/callout.twig' with {
+    heading: 'Important Notice',
+    content: 'This is the callout content.',
+    color: 'info',
+    icon: 'info'
+  } %}
+#}
+
+{# Set default color if not provided #}
+{% set color_variant = color|default('info') %}
+
+{# Map color variants to Tailwind classes #}
+{# Note: bg_alternate uses 'bg-alternate' in Tailwind (hyphen, not underscore) #}
+{% set color_classes = {
+  'info': {
+    'bg': 'bg-info/10',
+    'border': 'border-info',
+    'text': 'text-info',
+    'icon': 'text-info'
+  },
+  'danger': {
+    'bg': 'bg-danger/10',
+    'border': 'border-danger',
+    'text': 'text-danger',
+    'icon': 'text-danger'
+  },
+  'primary': {
+    'bg': 'bg-primary/10',
+    'border': 'border-primary',
+    'text': 'text-primary',
+    'icon': 'text-primary'
+  },
+  'secondary': {
+    'bg': 'bg-secondary/10',
+    'border': 'border-secondary',
+    'text': 'text-secondary',
+    'icon': 'text-secondary'
+  },
+  'success': {
+    'bg': 'bg-success/10',
+    'border': 'border-success',
+    'text': 'text-success',
+    'icon': 'text-success'
+  },
+  'bg_alternate': {
+    'bg': 'bg-bg-alternate',
+    'border': 'border-border',
+    'text': 'text-text',
+    'icon': 'text-text-muted'
+  }
+} %}
+
+{# Get color classes for the selected variant, default to info if invalid #}
+{% set styles = color_classes[color_variant]|default(color_classes['info']) %}
+
+<div class="callout {{ styles.bg }} {{ styles.border }} border-l-4 rounded-r-lg p-4 my-6">
+  <div class="flex items-start gap-3">
+    {% if icon %}
+      <div class="flex-shrink-0 {{ styles.icon }}">
+        {% include '@helmbench/01-atoms/icon/icon.twig' with {
+          name: icon,
+          size: 'md',
+          aria_hidden: true
+        } %}
+      </div>
+    {% endif %}
+    <div class="flex-1 flex flex-col">
+      {% if heading %}
+        <h3 class="callout-heading {{ styles.text }} m-0 font-semibold prose prose-lg">
+          {{ heading }}
+        </h3>
+      {% endif %}
+      <div class="callout-content text-text prose prose-base max-w-none mt-1 pl-0">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</div>
