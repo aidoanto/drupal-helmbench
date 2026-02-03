@@ -29,11 +29,11 @@
      */
     --bg-deep: 0.85 0.025 79;
     /* oklch(0.85 0.025 79) */
-    --bg: 0.96 0.02 79;
-    /* oklch(0.96 0.02 79) */
-    --bg-shallow: 1 0.02 79;
-    /* oklch(1 0.02 79) */
-    --bg-alternate: 0.9 0.04 79;
+    --bg: 0.96 0.025 79;
+    /* oklch(0.96 0.025 79) */
+    --bg-shallow: 1 0.025 79;
+    /* oklch(1 0.025 79) */
+    --bg-alternate: 0.9 0.025 79;
     /* oklch(0.9 0.025 79) */
     --text: 0.15 0.04 79;
     /* oklch(0.15 0.04 79) */
@@ -252,7 +252,7 @@
     @apply hidden;
   }
 
-  /* TOC list in mobile dropdown - built by JavaScript */
+  /* TOC list in mobile dropdown - built by JavaScript (H2s only) */
   .sticky-toc__list {
     @apply list-none p-0 m-0;
   }
@@ -261,34 +261,31 @@
     @apply list-none;
   }
   
-  /* TOC links - default styling (inactive) */
+  /* TOC links - base h3-like styling */
   .sticky-toc__list .toc-link {
-    @apply text-secondary;
+    @apply font-headings font-semibold;
+    font-size: 1.25em;
+    line-height: 1.5;
   }
   
-  /* H1 link always in primary color */
-  .sticky-toc__list .toc-link--h1 {
-    @apply text-primary;
-  }
-  
-  /* Active link - larger text, full opacity */
+  /* Active link - h1-like styling with secondary color */
   .sticky-toc__list .toc-link.is-active {
-    @apply text-lg opacity-100;
+    @apply text-secondary;
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1.1;
   }
   
-  /* Inactive links - smaller text, 50% opacity */
+  /* Inactive links - h3-like, slightly muted */
   .sticky-toc__list .toc-link:not(.is-active) {
-    @apply text-sm opacity-50;
-  }
-  
-  /* But H1 is always fully visible even when inactive */
-  .sticky-toc__list .toc-link--h1:not(.is-active) {
-    @apply opacity-100;
+    @apply opacity-70;
   }
 
   /* ==========================================================================
    * Desktop TOC Sidebar
-   * Dynamically built from page headings, same as mobile
+   * Dynamically built from H2 headings only (H1 excluded).
+   * Inactive: styled like prose h3 (1.25em, weight 600)
+   * Active: styled like prose h1 (2em, weight 800, secondary color)
    * ========================================================================== */
   
   /* Desktop TOC list styling */
@@ -300,48 +297,65 @@
     @apply list-none;
   }
 
-  /* TOC links - base styling */
+  /* TOC links - base h3-like styling */
   .region-toc .toc-link {
-    @apply block py-2 transition-all duration-200 text-secondary;
-  }
-  
-  /* H1 link always in primary color */
-  .region-toc .toc-link--h1 {
-    @apply text-primary;
+    @apply block py-2 transition-all duration-200;
+    @apply font-headings font-semibold;
+    font-size: 1.25em;
+    line-height: 1.5;
   }
 
-  /* Active state - larger, full opacity */
+  /* Active state - h1-like styling with secondary color */
   .region-toc .toc-link.is-active {
-    @apply text-lg opacity-100;
+    @apply text-secondary;
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1.1;
   }
   
-  /* Inactive state - smaller, 50% opacity */
+  /* Inactive state - h3-like, slightly muted */
   .region-toc .toc-link:not(.is-active) {
-    @apply text-sm opacity-50;
-  }
-  
-  /* H1 always visible even when inactive */
-  .region-toc .toc-link--h1:not(.is-active) {
-    @apply opacity-100;
+    @apply opacity-70;
   }
 
   /* ==========================================================================
    * Desktop Navigation Sidebar
-   * Active/inactive styling for nav items
+   * Links wrapped in h3 elements for semantic structure.
+   * Inactive: styled like prose h3 (1.25em, weight 600)
+   * Active: styled like prose h1 (2em, weight 800, secondary color)
    * ========================================================================== */
+  
+  /* Remove list styling from main nav */
+  .region-navigation .menu--main,
+  .region-navigation .menu--main li {
+    @apply list-none p-0 m-0;
+  }
+  
+  /* Nav heading wrapper - remove default h3 margins */
+  .region-navigation .nav-heading {
+    @apply m-0 p-0;
+  }
+  
+  /* Base link styling - h3-like typography */
   .region-navigation a {
     @apply block py-1 transition-all duration-200;
+    @apply font-headings font-semibold;
+    font-size: 1.25em;
+    line-height: 1.5;
   }
   
-  /* Active page - larger, full opacity */
+  /* Active page - h1-like styling with secondary color */
   .region-navigation a.is-active,
   .region-navigation a.is-active-trail {
-    @apply text-base font-medium opacity-100;
+    @apply text-secondary;
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1.1;
   }
   
-  /* Inactive pages - smaller, 50% opacity */
+  /* Inactive pages - h3-like styling, slightly muted */
   .region-navigation a:not(.is-active):not(.is-active-trail) {
-    @apply text-sm opacity-50;
+    @apply opacity-70;
   }
 
   /* ==========================================================================

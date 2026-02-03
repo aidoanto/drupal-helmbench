@@ -15,8 +15,8 @@
 /**
  * Build TOC List and Scroll Spy
  *
- * Builds the mobile TOC dropdown list from H1 + H2 headings on the page.
- * Uses Intersection Observer to track which heading is active.
+ * Builds the TOC dropdown list from H2 headings on the page (H1 excluded).
+ * Uses scroll position to track which heading is active.
  * Updates both the mobile sticky TOC and desktop TOC sidebar.
  */
 (function (Drupal, once) {
@@ -26,19 +26,11 @@
     attach: function (context, settings) {
       // Only run once on the main document
       once('scroll-spy', 'body', context).forEach(function () {
-        // Get the H1 (page title) and all H2 headings in main content
-        const h1 = document.querySelector('#main-content h1');
+        // Get only H2 headings in main content (H1 excluded from TOC)
         const h2s = document.querySelectorAll('#main-content h2[id]');
         
-        // Build array of all headings (H1 first, then H2s)
+        // Build array of H2 headings only
         const headings = [];
-        if (h1) {
-          // Ensure H1 has an ID for linking
-          if (!h1.id) {
-            h1.id = 'page-title';
-          }
-          headings.push(h1);
-        }
         h2s.forEach(function (h2) {
           headings.push(h2);
         });
@@ -61,7 +53,7 @@
           // Create a new list element
           const desktopTocList = document.createElement('ul');
           desktopTocContainer.appendChild(desktopTocList);
-          // Build the list with all headings
+          // Build the list with H2 headings only
           buildTocList(desktopTocList, headings);
         }
 
@@ -75,7 +67,7 @@
         let activeHeading = null;
 
         /**
-         * Build TOC list HTML from headings array
+         * Build TOC list HTML from headings array (H2s only)
          */
         function buildTocList(container, headings) {
           container.innerHTML = '';
@@ -88,12 +80,8 @@
             a.textContent = heading.textContent.trim();
             a.className = 'toc-link block py-2 transition-all duration-200';
             
-            // Add heading level class (H1 gets primary color)
-            if (heading.tagName === 'H1') {
-              a.classList.add('toc-link--h1', 'text-primary');
-            } else {
-              a.classList.add('toc-link--h2');
-            }
+            // All TOC items are H2s now
+            a.classList.add('toc-link--h2');
             
             li.appendChild(a);
             container.appendChild(li);
@@ -101,7 +89,9 @@
         }
 
         /**
-         * Update active states on TOC links and mobile header
+         * Update active states on TOC links and mobile header.
+         * Active: styled like h1 (larger, secondary color)
+         * Inactive: styled like h3 (smaller, muted)
          */
         function setActiveSection(heading) {
           if (!heading || heading === activeHeading) {
@@ -117,38 +107,18 @@
           allTocLinks.forEach(function (link) {
             const href = link.getAttribute('href');
             const isActive = href === '#' + headingId;
-            const isH1 = link.classList.contains('toc-link--h1');
             
             // Toggle active class
             link.classList.toggle('is-active', isActive);
             
-            // Apply active/inactive styling (H1 always visible, just changes size)
-            if (isActive) {
-              link.classList.remove('text-sm', 'opacity-50', 'text-xl');
-              link.classList.add('text-lg');
-            } else if (isH1) {
-              // H1 is always visible but smaller when inactive
-              link.classList.remove('text-lg', 'text-xl');
-              link.classList.add('text-base');
-              // Don't add opacity-50 to H1
-            } else {
-              // Regular H2s get smaller and faded
-              link.classList.remove('text-lg');
-              link.classList.add('text-sm', 'opacity-50');
-            }
+            // Apply active/inactive styling via CSS classes
+            // Active: h1-like (handled by .is-active in CSS)
+            // Inactive: h3-like (handled by :not(.is-active) in CSS)
           });
 
           // Update mobile sticky header text
           if (stickyTocCurrent) {
-            // Clear existing content and set new text
             stickyTocCurrent.textContent = headingText;
-            
-            // Apply primary color for H1
-            if (heading.tagName === 'H1') {
-              stickyTocCurrent.classList.add('text-primary');
-            } else {
-              stickyTocCurrent.classList.remove('text-primary');
-            }
           }
         }
 

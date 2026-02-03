@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Custom theme implementation for the main navigation menu.
+ *
+ * Renders each link wrapped in an h3 element for semantic structure.
+ * Links are styled as h3 when inactive and h1 when active.
+ * List styling is removed (no bullet points).
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link URL, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children.
+ *   - is_collapsed: TRUE if the link has hidden children.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ *
+ * @see template_preprocess_menu()
+ */
+#}
+{% import _self as menus %}
+
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('menu', 'menu--main', 'list-none', 'p-0', 'm-0') }}>
+    {% else %}
+      <ul class="list-none p-0 m-0">
+    {% endif %}
+    {% for item in items %}
+      {#
+        Apply custom classes to the li element.
+        Drupal adds 'is-active' to links automatically, but we need it on the wrapper too.
+      #}
+      {% set li_classes = [
+        'menu-item',
+        'list-none',
+        item.in_active_trail ? 'menu-item--active-trail',
+      ] %}
+      <li{{ item.attributes.addClass(li_classes) }}>
+        {# Wrap link in h3 for semantic structure - styled via CSS #}
+        <h3 class="nav-heading m-0">
+          {{ link(item.title, item.url) }}
+        </h3>
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

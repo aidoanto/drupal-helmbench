@@ -570,11 +570,11 @@ video {
      */
   --bg-deep: 0.85 0.025 79;
   /* oklch(0.85 0.025 79) */
-  --bg: 0.96 0.02 79;
-  /* oklch(0.96 0.02 79) */
-  --bg-shallow: 1 0.02 79;
-  /* oklch(1 0.02 79) */
-  --bg-alternate: 0.9 0.04 79;
+  --bg: 0.96 0.025 79;
+  /* oklch(0.96 0.025 79) */
+  --bg-shallow: 1 0.025 79;
+  /* oklch(1 0.025 79) */
+  --bg-alternate: 0.9 0.025 79;
   /* oklch(0.9 0.025 79) */
   --text: 0.15 0.04 79;
   /* oklch(0.15 0.04 79) */
@@ -1895,7 +1895,7 @@ body {
   display: none;
 }
 
-/* TOC list in mobile dropdown - built by JavaScript */
+/* TOC list in mobile dropdown - built by JavaScript (H2s only) */
 
 .sticky-toc__list {
   margin: 0px;
@@ -1907,45 +1907,36 @@ body {
   list-style-type: none;
 }
 
-/* TOC links - default styling (inactive) */
+/* TOC links - base h3-like styling */
 
 .sticky-toc__list .toc-link {
-  --tw-text-opacity: 1;
-  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+  font-family: "Archivo Narrow", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.25em;
+  line-height: 1.5;
 }
 
-/* H1 link always in primary color */
-
-.sticky-toc__list .toc-link--h1 {
-  --tw-text-opacity: 1;
-  color: oklch(var(--primary) / var(--tw-text-opacity, 1));
-}
-
-/* Active link - larger text, full opacity */
+/* Active link - h1-like styling with secondary color */
 
 .sticky-toc__list .toc-link.is-active {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  opacity: 1;
+  --tw-text-opacity: 1;
+  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
-/* Inactive links - smaller text, 50% opacity */
+/* Inactive links - h3-like, slightly muted */
 
 .sticky-toc__list .toc-link:not(.is-active) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  opacity: 0.5;
-}
-
-/* But H1 is always fully visible even when inactive */
-
-.sticky-toc__list .toc-link--h1:not(.is-active) {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 /* ==========================================================================
    * Desktop TOC Sidebar
-   * Dynamically built from page headings, same as mobile
+   * Dynamically built from H2 headings only (H1 excluded).
+   * Inactive: styled like prose h3 (1.25em, weight 600)
+   * Active: styled like prose h1 (2em, weight 800, secondary color)
    * ========================================================================== */
 
 /* Desktop TOC list styling */
@@ -1960,52 +1951,61 @@ body {
   list-style-type: none;
 }
 
-/* TOC links - base styling */
+/* TOC links - base h3-like styling */
 
 .region-toc .toc-link {
   display: block;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  --tw-text-opacity: 1;
-  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
+  font-family: "Archivo Narrow", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.25em;
+  line-height: 1.5;
 }
 
-/* H1 link always in primary color */
-
-.region-toc .toc-link--h1 {
-  --tw-text-opacity: 1;
-  color: oklch(var(--primary) / var(--tw-text-opacity, 1));
-}
-
-/* Active state - larger, full opacity */
+/* Active state - h1-like styling with secondary color */
 
 .region-toc .toc-link.is-active {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  opacity: 1;
+  --tw-text-opacity: 1;
+  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
-/* Inactive state - smaller, 50% opacity */
+/* Inactive state - h3-like, slightly muted */
 
 .region-toc .toc-link:not(.is-active) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  opacity: 0.5;
-}
-
-/* H1 always visible even when inactive */
-
-.region-toc .toc-link--h1:not(.is-active) {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 /* ==========================================================================
    * Desktop Navigation Sidebar
-   * Active/inactive styling for nav items
+   * Links wrapped in h3 elements for semantic structure.
+   * Inactive: styled like prose h3 (1.25em, weight 600)
+   * Active: styled like prose h1 (2em, weight 800, secondary color)
    * ========================================================================== */
+
+/* Remove list styling from main nav */
+
+.region-navigation .menu--main,
+  .region-navigation .menu--main li {
+  margin: 0px;
+  list-style-type: none;
+  padding: 0px;
+}
+
+/* Nav heading wrapper - remove default h3 margins */
+
+.region-navigation .nav-heading {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Base link styling - h3-like typography */
 
 .region-navigation a {
   display: block;
@@ -2014,24 +2014,27 @@ body {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
+  font-family: "Archivo Narrow", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 1.25em;
+  line-height: 1.5;
 }
 
-/* Active page - larger, full opacity */
+/* Active page - h1-like styling with secondary color */
 
 .region-navigation a.is-active,
   .region-navigation a.is-active-trail {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  opacity: 1;
+  --tw-text-opacity: 1;
+  color: oklch(var(--secondary) / var(--tw-text-opacity, 1));
+  font-size: 2em;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
-/* Inactive pages - smaller, 50% opacity */
+/* Inactive pages - h3-like styling, slightly muted */
 
 .region-navigation a:not(.is-active):not(.is-active-trail) {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /* ==========================================================================
@@ -2204,16 +2207,6 @@ body {
   display: none;
 }
 
-.size-10 {
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.size-20 {
-  width: 5rem;
-  height: 5rem;
-}
-
 .h-3 {
   height: 0.75rem;
 }
@@ -2232,14 +2225,6 @@ body {
 
 .h-8 {
   height: 2rem;
-}
-
-.h-\[50ch\] {
-  height: 50ch;
-}
-
-.h-\[50vh\] {
-  height: 50vh;
 }
 
 .h-\[35vh\] {
@@ -2288,6 +2273,10 @@ body {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.list-none {
+  list-style-type: none;
 }
 
 .grid-cols-1 {
@@ -2456,6 +2445,10 @@ body {
   background-color: oklch(var(--success) / 0.1);
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .p-2 {
   padding: 0.5rem;
 }
@@ -2494,57 +2487,12 @@ body {
   text-align: right;
 }
 
-.font-headings {
-  font-family: "Archivo Narrow", system-ui, sans-serif;
-}
-
 .\!font-headings {
   font-family: "Archivo Narrow", system-ui, sans-serif !important;
 }
 
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.\!text-4xl {
-  font-size: 2.25rem !important;
-  line-height: 2.5rem !important;
-}
-
-.\!text-8xl {
-  font-size: 6rem !important;
-  line-height: 1 !important;
-}
-
-.\!text-7xl {
-  font-size: 4.5rem !important;
-  line-height: 1 !important;
-}
-
-.text-7xl {
-  font-size: 4.5rem;
-  line-height: 1;
+.font-headings {
+  font-family: "Archivo Narrow", system-ui, sans-serif;
 }
 
 .text-2xl {
@@ -2555,6 +2503,11 @@ body {
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .font-semibold {
@@ -2594,10 +2547,6 @@ body {
 .text-text-muted {
   --tw-text-opacity: 1;
   color: oklch(var(--text-muted) / var(--tw-text-opacity, 1));
-}
-
-.opacity-50 {
-  opacity: 0.5;
 }
 
 .shadow-lg {
@@ -2680,31 +2629,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  .md\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .md\:\!text-5xl {
-    font-size: 3rem !important;
-    line-height: 1 !important;
-  }
-
-  .md\:\!text-9xl {
-    font-size: 8rem !important;
-    line-height: 1 !important;
-  }
-
-  .md\:\!text-8xl {
-    font-size: 6rem !important;
-    line-height: 1 !important;
-  }
-
-  .md\:text-8xl {
-    font-size: 6rem;
-    line-height: 1;
-  }
-
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
